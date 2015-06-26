@@ -15,3 +15,12 @@ plt.title("Distribution of overall ratings")
 plt.xlabel("Rating"); plt.ylabel("Frequency of rating")
 plt.show()
 
+# Calculate and plot mean ratings by artist
+artist_ratings = trackFrame[['Artist', 'Rating']].groupby('Artist').mean()
+# Sort by rating and highest rating first
+artist_ratings_sorted = artist_ratings.sort(columns='Rating', ascending=False)
+plt.figure()
+artist_ratings_sorted.plot(kind="bar")
+plt.title("Mean rating by artist")
+plt.xlabel("Artist"); plt.ylabel("Mean rating")
+plt.show()
