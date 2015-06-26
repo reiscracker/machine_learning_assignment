@@ -19,8 +19,13 @@ plt.show()
 artist_ratings = trackFrame[['Artist', 'Rating']].groupby('Artist').mean()
 # Sort by rating and highest rating first
 artist_ratings_sorted = artist_ratings.sort(columns='Rating', ascending=False)
-plt.figure()
+#plt.figure()
 artist_ratings_sorted.plot(kind="bar")
 plt.title("Mean rating by artist")
 plt.xlabel("Artist"); plt.ylabel("Mean rating")
+plt.show()
+
+# Average ratings given by each user in bins of 10
+user_ratings = trackFrame[['User', 'Rating']].groupby('User').mean()
+user_ratings.hist()
 plt.show()
