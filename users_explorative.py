@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Read training and user data
-#trackFrame = pd.read_csv('train.csv')
+trackFrame = pd.read_csv('train.csv')
 userFrame = pd.read_csv('users.csv')
 
 # Mark inconsistent data
