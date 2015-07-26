@@ -1,11 +1,17 @@
+% Projekt-Bericht und Dokumentation im Kurs MachineLearning SoSe15
+% Simon Arnold; Lukas Hodel
+% 28. Juli 2015
+
 # Einleitung
 
 ## EMI Music Data Science Hackathon
+
 Der EMI Music Data Science Hackathon war ein vom 21. Juli 2012 bis zum 22. Juli 2012 laufender Wettbewerb auf kaggle.com der zur EMI Music Group gehörenden EMI Insight. Grundlage des Wettbewerbs war ein Datensatz der EMI Insight Marktforschung, der insgesamt eine Million Erhebungen und Aussagen über Musikvorlieben, Hörgewohnheiten und weitere Daten, wie beispielsweise Wohnort, Alter und Arbeitssituation beinhaltet. Eine Teilmenge dieses Datensatzes wurde für den Hackathon zur Verfügung gestellt um die Frage zu beantworten, inwieweit sich anhand dieser statistischen Daten voraussagen lässt, wie positiv oder negativ eine Person ein bestimmtes neues Lied bewerten wird.
 
 Ein weiterer Augenmerk des Hackathons lag auf der Visualisierung der vorhandenen Daten. Da die Umfragen der EMI Insight auch einige Informationen über die Lebensverhältnisse der befragten Personen liefern, liessen sich aus dem Datensatz auch interessante Schlussfolgerungen über beispielsweise die Musikvorlieben unterschiedlicher Altersgruppen herleiten. Diese konnten visualisiert und anschließend von anderen Nutzern des Hackthons bewertet werden.
 
 ## Der Datensatz
+
 Der zur Verfügung gestellte Datensatz beinhaltet insgesamt fünf Dateien im `csv` Format:
 
 ### train.csv
@@ -91,18 +97,18 @@ Und auch die angegebene Zeit, die Teilnehmer der Umfrage täglich aktiv und pass
 Dabei zeigte sich, dass das jüngere Teilnehmer eindeutig mehr Zeit mit dem Hören von Musik verbrachten als ältere. Dies deckte sich mit dem Interesse an Musik der Teilnehmer, das mit zunehmendem Alter abnahm. Um dies in einen numerischen Wert zu bringen, wurde jeder möglichen Aussage zur Wichtigkeit von Musik im Leben des Teilnehmers ein Wert zugewiesen:
 
 ```python
-# Transform the music interest into a usable value
-def music_interest_transform(answer):
-    return {
-        'Music means a lot to me and is a passion of mine' : 1,
-        'Music is important to me but not necessarily more important than other hobbies or interests' : 0.75,
-        'Music is important to me but not necessarily more important': 0.75,
-        'I like music but it does not feature heavily in my life': 0.5,
-        'Music is no longer as important as it used to be to me': 0.25,
-        'Music has no particular interest for me': 0
-    }.get(answer, np.nan)
-    
-data.loc[:, 'MUSIC'] = data['MUSIC'].apply(music_interest_transform)
+  # Transform the music interest into a usable value
+  def music_interest_transform(answer):
+      return {
+          'Music means a lot to me and is a passion of mine' : 1,
+          'Music is important to me but not necessarily more important than other hobbies or interests' : 0.75,
+          'Music is important to me but not necessarily more important': 0.75,
+          'I like music but it does not feature heavily in my life': 0.5,
+          'Music is no longer as important as it used to be to me': 0.25,
+          'Music has no particular interest for me': 0
+      }.get(answer, np.nan)
+      
+  data.loc[:, 'MUSIC'] = data['MUSIC'].apply(music_interest_transform)
 ```
 
 ![](images/listening_hours_by_age.png)\
@@ -125,26 +131,26 @@ Wenn man nun die Tags pro Artist als "Satz" interpretiert, kann man aus den Tags
 
 Die Kookkurrenzliste is ein verschachtelter Hash, bzw. ein `dict`. Der `key` vom Eltern `dict` ist ein Wort. Der `key` vom Kinds `dict` ist das kookkurrierende Wort. Dieses wiederum hat als `value` die frequenz, wie oft es mit dem Eltern-Wort vorkommt.
 
-__Hier der Beginn der von uns erstellten Liste : __
+__Hier der Beginn der von uns erstellten Liste:__
 
 ```json
-{
-    'Aggressive': {
-        'Annoying': 337,
-        'Approachable': 145,
-        'Arrogant': 1539,
-        'Authentic': 515,
-        ...
-     },
-     'Annoying': {
-        'Aggressive': 337,
-        'Approachable': 18,
-        'Arrogant': 372,
-        'Authentic': 50,
-        ...
-     },
-     ...
-}
+  {
+      'Aggressive': {
+          'Annoying': 337,
+          'Approachable': 145,
+          'Arrogant': 1539,
+          'Authentic': 515,
+          ...
+       },
+       'Annoying': {
+          'Aggressive': 337,
+          'Approachable': 18,
+          'Arrogant': 372,
+          'Authentic': 50,
+          ...
+       },
+       ...
+  }
 ```
 
 ### Berechnen der Signifikanz
@@ -167,7 +173,7 @@ Wenn man die Kookkurrenten und deren Signifikanz analog zu Webseiten, welche dur
 
 Um den PageRank zu berechnen verwenden wir die Python bibliothek "networkx". Diese erlaubt es einen Graphen auf zu bauen, und bietet die berechnung von PageRank sowie HITS an. Es wurde für jede Signifikanz berechnungsart (Poisson, Loglikelihood und Dice), einen Graphen erstellt und die PageRanks berechnet. Um ein möglichst ausgeglichenes Ergebnis zu erhalten wurden die Ergebnisse zusammengefügt und gemittelt.
 
-__ Die 30 signifikantesten Kookkurrenten __
+__Die 30 signifikantesten Kookkurrenten__
 
 ![](images/most_significant_words_pagerank.png)\
 
@@ -218,7 +224,7 @@ Danach müssen die original Spalten entfernt werden da diese Werte ungültig, rs
 
 __LIST_OWN und LIST_BACK__
 
-Die Felder _LIST_OWN_ und _LIST BACK_ beinhaltet eine Mischung zwischen nummerischen Nummern aber auch beschreibenden Nummern. Um alles nummerische Inhalte zu erhalten werden diese mit einer speziellen Funktion transformiert.
+Die Felder `LIST_OWN` und `LIST BACK` beinhaltet eine Mischung zwischen nummerischen Nummern aber auch beschreibenden Nummern. Um alles nummerische Inhalte zu erhalten werden diese mit einer speziellen Funktion transformiert.
 
 ```python
 def hourTransform(val):
@@ -232,7 +238,7 @@ def hourTransform(val):
     return None
 ```
 
-Diese Funktion wird dann auf die Spalte angewandt.
+Diese Funktion wird dann auf die Spalte angewandt:
 
 ```python
 userFrameDummy['LIST_OWN'] = userFrameDummy['LIST_OWN'].apply(hourTransform)
@@ -240,7 +246,7 @@ userFrameDummy['LIST_OWN'] = userFrameDummy['LIST_OWN'].apply(hourTransform)
 
 ### Zusammenführen der Pandas Dataframes 
 
-Nun werden die pandas Dataframes der Wörter, Tracks und Users zusammengeführt. Dabei wird explizit ein Inner Join verwedet, damit die inkonsistenten Daten wegfallen. Zu beachten ist, dass die User Spalte im train.csv den Namen __RESPID__ hat, in den anderen zwei Dateien jedoch __User__ heisst.
+Nun werden die pandas Dataframes der Wörter, Tracks und Users zusammengeführt. Dabei wird explizit ein Inner Join verwedet, damit die inkonsistenten Daten wegfallen. Zu beachten ist, dass die User Spalte im train.csv den Namen `RESPID` hat, in den anderen zwei Dateien jedoch `User` heisst.
 
 ```python
 X_all = pd.merge(trainFrame, userFrameDummy, how='inner', left_on='User', right_on='RESPID').drop('RESPID',1)
@@ -251,7 +257,7 @@ __X_all__ ist nun ein pandas Dataframe welches alle Features und auch die Raging
 
 ### Trennen der Features mit dem Target
 
-Das zu erratende Feld (target) ist das `Rating`. Deswegen wird nun diese Spalte von X_all entfernt und in y_all hinzugefügt.
+Das zu erratende Feld (target) ist das `Rating`. Deswegen wird nun diese Spalte von `X_all` entfernt und in `y_all` hinzugefügt.
 
 ```python
 y_all = X_all['Rating']
@@ -259,7 +265,7 @@ X_all = X_all.drop('Rating',1)
 ```
 ### Trennen der Trainingsdaten in Train -und Testdaten
 
-Das Training sollte nicht auf den Testdaten passieren. Damit wir sicher nicht eine Abhängigkeit schaffen werden die Test und Trainingsdaten getrennt bevor die NaN Werte aufgefüllt werden. Dafür verwenden wir die von sklearn.cross_validation gestellte funktion `train_test_split`. Dabei werden 20% der Daten in Testdaten getrennt. Die Daten werden zufällig heraus gepickt. Es wurde diese Zufälligkeit gewählt um zu verhindert dass z.B bewertungen von gesamten Benutzern fehlen.
+Das Training sollte nicht auf den Testdaten passieren. Damit wir sicher nicht eine Abhängigkeit schaffen werden die Test und Trainingsdaten getrennt bevor die NaN Werte aufgefüllt werden. Dafür verwenden wir die von sklearn.`cross_validation` gestellte funktion `train_test_split`. Dabei werden 20% der Daten in Testdaten getrennt. Die Daten werden zufällig heraus gepickt. Es wurde diese Zufälligkeit gewählt um zu verhindert dass z.B bewertungen von gesamten Benutzern fehlen.
 
 ```python
 from sklearn import cross_validation
@@ -276,10 +282,9 @@ Für das "base model" wurde die Lineare Regression gewählt. Dabei wurde so vorg
 - Es wird sklearn.pipeline verwendet die Reihenfolge zu "automatisieren".
 - Durch preprocessing.Imputer werden die NaN felder mit dem Mittelwert gefüllt.
 - Durch proprocessing.StandardScalar werden die features scaliert.
-- der cross_validation.cross_val_score berechnet den mean_squared_error der corssvalidation.
+- der `cross_validation.cross_val_score` berechnet den `mean_squared_error` der corssvalidation.
 
-Es ist uns aufgefallen, dass die Methode `cross_val_score` einen negativen mean_squared_error zurück gibt. Näheres kann auf Githup nachgelesen werden. Wir konnten das Problem lösen indem wir einfach das Resultat wieder mit -1 multiplizierten.
-https://github.com/scikit-learn/scikit-learn/issues/2439.
+Es ist uns aufgefallen, dass die Methode `cross_val_score` einen negativen mean_squared_error zurück gibt. Näheres kann auf Githup nachgelesen werden. Wir konnten das Problem lösen indem wir einfach das Resultat wieder mit -1 multiplizierten. https://github.com/scikit-learn/scikit-learn/issues/2439.
 
 ```python
 from sklearn.linear_model import LinearRegression
@@ -302,7 +307,7 @@ scores = cross_validation.cross_val_score(clf, X_train, y_train, scoring="mean_s
 # >> durchschnittliche rmse => 16.15075547663826
 ```
 
-__ Auf Testdaten anwenden __
+__Auf Testdaten anwenden__
 
 - Zuerst werden die Mittelwerte aufgefüllt und zwar separat für die Testdaten und die Trainingsdaten.
 - Danach wird das model mit den Trainingsdaten trainiert. Nun werden alle Trainingsdaten verwendet.
@@ -317,6 +322,7 @@ rmse = mse**0.5
 
 # >> rmse => 16.220828137494721
 ```
+
 Mit diesem Model konnten wir auf Kaggle einen guten Mittelfeld Platz ergattern.
 
 ### RidgeRegressor
@@ -353,7 +359,7 @@ Werden alle wichtigen Features ausgegeben kann sehr gut gesehen gelesen werden, 
 
 ### LinearRegression mit wichtigen Features
 
-Nun, da die wichtigsten Features durch RandomForest heausgefunden wurde, ist von Interesse wie sich die normale LineareRegression verhält, wenn diese nur mit den wichtigsten Features gemacht wird.
+Nun, da die wichtigsten Features durch RandomForest heausgefunden wurde, ist von Interesse wie sich die normale LineareRegression verhält, wenn diese nur mit den wichtigsten Features gemacht wird`.
 
 Um zu testen ob es sich um Overfitting handelt, haben wir nun mal die LineareRegression anhand nur den wichtigsten Features durchgeführt.
 
@@ -373,11 +379,11 @@ Nach dieser Erkentniss, sind wir davon überzeugt, dass das Resultat nur verbess
 
 ### Support Vector Regression
 
-Auch haben wir versucht die Bewertungen per Support Vector regression vorher zu sagen. Dieser dauerte jedoch auf einer Machine 5 Stunden. Somit haben wir ihn nur einmal mit Standardwerten laufen lassen. Dabei ist ein eher ernüchternder rsme von __22.237846871998496__ herausgekommen. Evt. könnte man per GridSearch noch bessere hyperparameter finden. Dafür haben wir jedoch zu wenig rechenpower ;)
+Auch haben wir versucht die Bewertungen per Support Vector regression vorher zu sagen. Dieser dauerte jedoch auf einer Machine 5 Stunden. Somit haben wir ihn nur einmal mit Standardwerten laufen lassen. Dabei ist ein eher ernüchternder rsme von __22.237846871998496__ herausgekommen. Evt. könnte man per GridSearch noch bessere hyperparameter finden. Dafür haben wir jedoch zu wenig rechenpower.
 
 ### Feature engeneering
 
-__ Altersgruppen __
+__Altersgruppen__
 
 Um auf weitere Features zur Feature Engeneering zu kommen hat sich als erstes das Alter angeboten. Dabei habe wurden die Alter in zehn Jahres Gruppen aufgeteilt. Somit wurden 8 neue Features generiert.
 
@@ -403,6 +409,7 @@ Da wir nun herausgefunden haben, dass sich duch Feature-Engeneering, also Erweit
 
 1. Analysieren der besten Fragen
     - Kann man die User anhand der Fragen in weitere Gruppen einteilen?
+
 2. Clustering der Kookkurrenten
     - Kann man die Wörter noch mals Gruppieren und so neue Features erstellen?
     - Erweitern der Kookkurrenten durch Synonyme.
@@ -414,11 +421,8 @@ Auch gibt es noch grundsätzlich andere Verfahren zur Berechnung von Bewertungen
 Collaboratives Filtering könnte so aussehen:
 
 1. Es muss ein Ähnlichkeitsmaß der Benutzer, Artists und Tracks gefunden werden.
+
 2. Die Bewertung geht nun folgendermassen:
     - Es werden die Ähnlichsten Benutzer zum zu bewertenden Benutzer gesucht.
     - Es werden die Tracks der ähnlichen Benutzer welche auch ähnlich oder gleich dem neu zu bewertenden Track gesucht.
     - Von diesen Tracks wird der Mittelwert der Ratings genommen.
-    
-
-
-    
