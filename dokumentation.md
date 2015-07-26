@@ -123,6 +123,13 @@ In Bezug nun zur Bewertung, die Teilnehmer den Songs bzw Künstlern gaben, schie
 
 ![](images/rating_by_employment.png)\
 
+Das Alter hingegen gab wenig Hinweis auf die abgegebenen Bewerungen des Teilnehmers. Lediglich Teilnehmer über 80 Jahre schienen deutlich schlechter zu bewerten.
+
+![](images/rating_by_age.png)\
+
+Im Gegensatz dazu spielte das angegebene Interesse des Teilnehmers an Musik eine große Rolle. Niedrige Bewertungen wurden generell eher von Menschen abgegeben, die auch angaben weniger Interesse an Musik zu haben. Die höchsten Bewertungen wurden von Menschen mit großem Interesse an Musik gegeben.
+
+![](images/music_interest_by_rating.png)\
 
 ## Kookkurrents-Analyse der Worte
 
