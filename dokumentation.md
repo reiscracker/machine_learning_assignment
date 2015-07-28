@@ -168,7 +168,7 @@ Nun gibt es jedoch noch komplexere formen der Signifikanzberechnungen wie der DI
 
 ![](images/cooccurrence_tagclound.png)\
 
-Aus dieser Grafik wurden die Tags "None of These" und "Old" entfernt. Dies da dies die zwei Tags mit der kleinsten signifikanz sind. Wenn diese dabei sind kann man die Unterschiede der anderen Tags kaum mehr sehen. Auch nicht gut zu sehen ist (desswegen rot erläutert) dass sich "Talented" ziemlich genau in der Mitte des Graphen befindet. Talentet ist, wie später errechnet wird, das signifikanteste Wort.
+Aus dieser Grafik wurden die Tags "None of These" und "Old" entfernt. Dies da dies die zwei Tags mit der kleinsten signifikanz sind. Wenn diese dabei sind kann man die Unterschiede der anderen Tags kaum mehr sehen. Auch nicht gut zu sehen ist (deswegen rot erläutert) dass sich "Talented" ziemlich genau in der Mitte des Graphen befindet. Talented ist, wie später errechnet wird, das signifikanteste Wort.
 
 ![](images/cooccurrence_non_of_these.png)\
 
@@ -176,22 +176,22 @@ Hier kann man sehr schön erkennen, dass "Non of these" nie mit einem anderen Wo
 
 ### Berechnung der Worte mit der höchsten Signifikanz mittels PageRank
 
-Wenn man die Kookkurrenten und deren Signifikanz analog zu Webseiten, welche durch Links auf einander Zeigen, interpretiert. Kann angenommen werden, dass auf die Kookkurrenzen eben so den PageRank-Algorithmus angewendet werden kann. Durch den PageRank-Algorithmus kann herausgefunden werden, welche Kookkurrenten, also Worte am meisten mit anderen Worten zusammen auftreten und so zusagen einen höheren Stellenwert besitzen.
+Wenn man die Kookkurrenten und deren Signifikanz analog zu Webseiten, welche durch Links auf einander Zeigen, interpretiert, kann angenommen werden, dass auf die Kookkurrenzen eben so der PageRank-Algorithmus angewendet werden kann. Durch den PageRank-Algorithmus kann herausgefunden werden, welche Kookkurrenten, also Worte am meisten mit anderen Worten zusammen auftreten und so zusagen einen höheren Stellenwert besitzen.
 
-Um den PageRank zu berechnen verwenden wir die Python bibliothek "networkx". Diese erlaubt es einen Graphen auf zu bauen, und bietet die berechnung von PageRank sowie HITS an. Es wurde für jede Signifikanz berechnungsart (Poisson, Loglikelihood und Dice), einen Graphen erstellt und die PageRanks berechnet. Um ein möglichst ausgeglichenes Ergebnis zu erhalten wurden die Ergebnisse zusammengefügt und gemittelt.
+Um den PageRank zu berechnen verwenden wir die Python-Bibliothek _networkx_. Diese erlaubt es einen Graphen auf zu bauen, und bietet die Berechnung von PageRank an. Es wurde für jede Signifikanzberechnungsart (Poisson, Loglikelihood und Dice) ein Graphen erstellt und die PageRanks berechnet.
 
 __Die 30 signifikantesten Kookkurrenten__
 
 ![](images/most_significant_words_pagerank.png)\
 
-Die Signifikantesten Terme kommen in der "Tag Cloude" eher in der mitte vor.
+Die signifikantesten Terme kommen in der "Tag Cloud" eher in der Mitte vor.
 
-Interessant ist hier, dass ein grossteil der signifikantesten Kookkurrenten, ebenfalls vom RandomForestRegressor als "important Features" angegeben wurde.
+Interessant ist hier, dass ein Grossteil der signifikantesten Kookkurrenten ebenfalls vom RandomForestRegressor als "important Features" angegeben wurde.
 
 ### Weiterführende Gedanken zu der Kookkurrentenanalyse
 
-Nun könnte man diese Terme noch Clustern um neue Gruppierungen zu erhalten. Dann könnte man die 83 Suchterme auch kleinere Gruppen unterbrechen und so die Feature menge verkleinern, ohne dass ganze Terme gestrichen werden.
-In der Arbeit wurde experimentiert, dass nur die Wichtigsten worte verwendet werden. Dies hat zwar zum effekt dass die Vorhersagen mit weniger Features, trotzdem noch gut ist. Besser wurden es durch features reduktion jedoch nicht.
+Nun könnte man diese Terme noch Clustern um neue Gruppierungen zu erhalten. Dann könnte man die 83 Suchterme auch in kleinere Gruppen runterbrechen und so die Featuremenge verkleinern, ohne dass ganze Terme gestrichen werden.
+In der Arbeit wurde experimentiert, dass nur die wichtigsten Worte verwendet werden. Dies hat zwar zum Effekt, dass die Vorhersagen mit weniger Features trotzdem noch gut sind. Besser wurde es durch die Featuresreduktion jedoch nicht.
 
 # Predicting
 
@@ -199,7 +199,7 @@ In der Arbeit wurde experimentiert, dass nur die Wichtigsten worte verwendet wer
 
 ### Analyse der Konsistenz in den CSV Dateien
 
-Wie zu sehen ist gibt es inkonsistenzen bei den User-Daten. In allen csv Dateien gibt es eine unterscheidliche Zahl von eineindeutigen Users. Wir werden beim Zusammenführen dieser Datein einen inner join verwenden damit nur noch Datensätze verwendet werden wo die User überall vorkommen. Leider können wir User nicht über einen Mittelwert auffüllen.
+Wie zu sehen ist gibt es Inkonsistenzen bei den User-Daten. In allen csv Dateien gibt es eine unterschiedliche Anzahl von eindeutigen Users. Wir werden beim Zusammenführen dieser Datein einen _inner join_ anwenden, wodurch nur noch Datensätze übrig bleiben welche Konsistent sind. Leider können wir die User nicht über einen Mittelwert auffüllen.
 
     Unique Artists in train Frame 50
     Unique Artists in words Frame 50
@@ -209,7 +209,7 @@ Wie zu sehen ist gibt es inkonsistenzen bei den User-Daten. In allen csv Dateien
     
 ### Erstellen von Dummy-Werte/Spalten für nicht-nummerische Spalten
 
-Die Spalten `GENDER`, `REGION`, `WORKING` und `MUSIC` der Datei users.csv und die Spalten `HEARD_OF` und `OWN_ARTIST_MUSIC` der Datei words.cvs sind mit nicht-nummerischen Werten Gefüllt. Diese Werte müssen nun in nummerische Werte umgewandelt werden. Dafür werden sogenannte Dummy Werte erstellt. Dies kann mit der pandas funktion `pd.get_dummies` gemacht werden. Durch `pd.concat` werden die neu erstellten Spalten wieder mit dem pandas Dataframe zusammengeführt (konkatiniert).
+Die Spalten `GENDER`, `REGION`, `WORKING` und `MUSIC` der Datei users.csv und die Spalten `HEARD_OF` und `OWN_ARTIST_MUSIC` der Datei words.cvs sind mit nicht-nummerischen Werten Gefüllt. Diese Werte müssen in nummerische Werte umgewandelt werden. Dafür werden sogenannte Dummy Werte erstellt. Dies kann mit Hilfe der Pandasfunktion `pd.get_dummies` gemacht werden. Durch `pd.concat` werden die neu erstellten Spalten wieder mit dem pandas Dataframe zusammengeführt (konkatiniert).
 
 ```python
 userFrameDummy = pd.concat([userFrame,
@@ -225,13 +225,13 @@ wordsFrameDummy = pd.concat([wordsFrame,
                             axis=1)
 ```
 
-Danach müssen die original Spalten entfernt werden da diese Werte ungültig, rsp nicht verarbeitet werden können.
+Danach müssen die Originalspalten entfernt werden da diese Werte ungültig, rsp nicht verarbeitet werden können.
 
 ### Weitere Werteanpassungen
 
 __LIST_OWN und LIST_BACK__
 
-Die Felder `LIST_OWN` und `LIST BACK` beinhaltet eine Mischung zwischen nummerischen Nummern aber auch beschreibenden Nummern. Um alles nummerische Inhalte zu erhalten werden diese mit einer speziellen Funktion transformiert.
+Die Felder `LIST_OWN` und `LIST BACK` beinhalten Zahlen, welche sowohl in numerischer Form, als auch in verbaler Form ausgedrückt werden. Um nur numerische Werte zu erhalten, werden diese mit einer speziellen Funktion transformiert.
 
 ```python
 def hourTransform(val):
@@ -253,18 +253,18 @@ userFrameDummy['LIST_OWN'] = userFrameDummy['LIST_OWN'].apply(hourTransform)
 
 ### Zusammenführen der Pandas Dataframes 
 
-Nun werden die pandas Dataframes der Wörter, Tracks und Users zusammengeführt. Dabei wird explizit ein Inner Join verwedet, damit die inkonsistenten Daten wegfallen. Zu beachten ist, dass die User Spalte im train.csv den Namen `RESPID` hat, in den anderen zwei Dateien jedoch `User` heisst.
+Nun werden die pandas Dataframes der Wörter, Tracks und Users zusammengeführt. Dabei wird explizit ein _Inner Join_ verwedet, damit die inkonsistenten Daten wegfallen. Zu beachten ist, dass die Userspalte in der Datei train.csv den Namen `RESPID` hat, in den anderen zwei Dateien jedoch `User` heisst.
 
 ```python
 X_all = pd.merge(trainFrame, userFrameDummy, how='inner', left_on='User', right_on='RESPID').drop('RESPID',1)
 X_all = pd.merge(X_all, wordsFrameDummy, how='inner', on=['Artist', 'User'])
 ```
 
-__X_all__ ist nun ein pandas Dataframe welches alle Features und auch die Ragings beinahltet.
+__X_all__ ist nun ein pandas Dataframe, welches alle Features und auch die Ratings beinhaltet.
 
 ### Trennen der Features mit dem Target
 
-Das zu erratende Feld (target) ist das `Rating`. Deswegen wird nun diese Spalte von `X_all` entfernt und in `y_all` hinzugefügt.
+Das zu vorhersagende Feld (target) ist _Rating_, deswegen wird nun diese Spalte aus `X_all` entfernt und in `y_all` hinzugefügt.
 
 ```python
 y_all = X_all['Rating']
@@ -272,26 +272,33 @@ X_all = X_all.drop('Rating',1)
 ```
 ### Trennen der Trainingsdaten in Train -und Testdaten
 
-Das Training sollte nicht auf den Testdaten passieren. Damit wir sicher nicht eine Abhängigkeit schaffen werden die Test und Trainingsdaten getrennt bevor die NaN Werte aufgefüllt werden. Dafür verwenden wir die von sklearn.`cross_validation` gestellte funktion `train_test_split`. Dabei werden 20% der Daten in Testdaten getrennt. Die Daten werden zufällig heraus gepickt. Es wurde diese Zufälligkeit gewählt um zu verhindert dass z.B bewertungen von gesamten Benutzern fehlen.
+Das Training sollte nicht auf den Testdaten passieren. Damit wir sicher nicht eine Abhängigkeit schaffen, werden die Test- und Trainingsdaten getrennt, bevor die NaN-Werte aufgefüllt werden. Dafür verwenden wir die von `sklearn.cross_validation` gestellte Funktion `train_test_split`. Dabei werden 20% der Daten in Testdaten getrennt. Die Daten werden zufällig heraus gepickt. Diese Zufälligkeitsverfahren wurde gewählt, um zu verhindern, dass User ausschließlich im Test oder im Trainingsset befinden.
 
 ```python
 from sklearn import cross_validation
 X_train, X_test, y_train, y_test = cross_validation.train_test_split(
     X_all, y_all, test_size=0.20, random_state=2)
 ```
+
 ## Training
+
+### Regression/Klassifikation
+
+Da sich zwei leicht unterschiedliche Bewertungen, beispielsweise 99 und 100, einander sehr ähnlich sind, handelt es sich hierbei um ein Regressionsproblem und nicht um eine Klassifikation. Rein theoretisch könnte man die Ratings in 100 Klassen aufteilen, somit wäre 99 und 100 jedoch komplet anders.
 
 ### Base LinearRegression
 
-Für das "base model" wurde die Lineare Regression gewählt. Dabei wurde so vorgegangen:
+Zum Verglich der verschiedenen Modelle wurde zunächst die lineare Regression  als Grundlage gewählt. Dabei wurde folgendermaßen vorgegangen:
 
 - Die Trainingsdaten werden nochmals durch Crossvalidation in 3 Teile gesplittet.
-- Es wird sklearn.pipeline verwendet die Reihenfolge zu "automatisieren".
-- Durch preprocessing.Imputer werden die NaN felder mit dem Mittelwert gefüllt.
-- Durch proprocessing.StandardScalar werden die features scaliert.
+- Es wird sklearn.pipeline verwendet, um die Reihenfolge der Lernschritte zu automatisieren.
+- Durch preprocessing.Imputer werden die NaN Felder mit dem Mittelwert gefüllt.
+- Durch proprocessing.StandardScalar werden die Features skaliert.
 - der `cross_validation.cross_val_score` berechnet den `mean_squared_error` der corssvalidation.
 
-Es ist uns aufgefallen, dass die Methode `cross_val_score` einen negativen mean_squared_error zurück gibt. Näheres kann auf Githup nachgelesen werden. Wir konnten das Problem lösen indem wir einfach das Resultat wieder mit -1 multiplizierten. https://github.com/scikit-learn/scikit-learn/issues/2439.
+Es ist uns aufgefallen, dass die Methode `cross_val_score` einen negativen mean_squared_error zurück gibt. Näheres kann auf [Github](https://github.com/scikit-learn/scikit-learn/issues/2439) nachgelesen werden. Wir konnten das Problem lösen, indem wir einfach das Resultat wieder mit -1 multiplizierten.
+
+Um den root mean squared error (rmse), welche von Kaggle vorgeschrieben wird, zu erhalten, haben wir die Wurzel manuell gezogen.
 
 ```python
 from sklearn.linear_model import LinearRegression
@@ -334,7 +341,7 @@ Mit diesem Model konnten wir auf Kaggle einen guten Mittelfeld Platz ergattern.
 
 ### RidgeRegressor
 
-Der RidgeRegressor ist eine Erweiterung des LinearRegressor durch regularisierung. Nun ist es möglich einen Parameter `alpha` mit zu geben. Je grösser dieser Wert gewählt wird, desto mehr wird versucht der polynomen Funktion (da wir mehrere Features haben) die Dimensionen zu verkleiner. Es ist also eine Methode um Overfitting zu verhindern.
+Der RidgeRegressor ist eine Erweiterung des LinearRegressor durch Regularisierung. Nun ist es möglich einen Parameter `alpha` mit zu geben. Je grösser dieser Wert gewählt wird, desto mehr wird versucht die Dimension der Polynomfunktion - da wir mehrere Features haben - zu reduzieren. Es ist also eine Methode um Overfitting zu verhindern.
 
 ![](images/ridge_diff_to_linear_per_alpha.png)\
 
@@ -342,94 +349,106 @@ Wie man an der Grafik sehen kann, ändern sich die Werte pro alpha minimalst. Un
 
 ### LassoRegressor
 
-Eine weitere Erweiterung der LinearenRegression ist der LassoRegressor. Dieser versucht ebenfalls wie der RidgeRegressor eine gewisse regualrisation zu erreichen. Genauer versucht der LassoRegressor wichtige features zu finden und nur diese zu verwenden. Der LassoRegressor hat jedoch auch nur schlechtere ergebnisse geliefert als der normale LineareRegressor. 
+Eine weitere Erweiterung der LinearenRegression ist der LassoRegressor. Dieser versucht ebenfalls wie der RidgeRegressor eine gewisse Regularisierung zu erreichen. Genauer versucht der LassoRegressor wichtige Features zu finden und nur diese zu verwenden. Der LassoRegressor hat jedoch auch nur schlechtere Ergebnisse geliefert, als der normale LinearRegressor. 
 
 Es wurden alphas zwischen 0.001 und 0.5 gewählt. Dabei hat die der rsme nicht verändert bei __16.150947926890396__ gehalten.
 
 ### RandomForest
 
-Der RandomForst Klassifikator/Regressor generiert mehrere Entscheidungsbäume. Wenn nun eine neue vorhersage gemacht wird, wird diese von allen Entscheidungsbäumen gefällt und zusammengezählt. Jeder Baum im Wald hat somit mitentscheidungsrecht. Die Antwort für welche die meisten Bäume wahren gewinnt.
-Der RandomForest kann nicht "Overfitten" und ist ziemlich schnell, auch wenn mehrere Bäume generiert werden.
-Durch dass der RandomForest die Bäume durch zufällige features generiert, kann er auch berechnen welche Fetures relevant sind und welche nicht. Daher kann er auch sehr gut zur Feature selektion genutzt werden.
+Der RandomForest Klassifikator/Regressor generiert mehrere Entscheidungsbäume. Wenn nun eine neue Vorhersage gemacht wird, wird diese von allen Entscheidungsbäumen __gefällt__ und zusammengezählt. Jeder Baum im Wald hat somit ein Mitentscheidungsrecht. Die Antwort für welche die meisten Bäume wahren gewinnt.
+Der RandomForest kann nicht "Overfitten" und ist ziemlich schnell auch wenn mehrere Bäume generiert werden. Die Komplexität ist linear steigend.
+Durch dass der RandomForest die Bäume durch zufällige Features generiert, kann er auch berechnen welche Fetures relevant sind und welche nicht. Daher ist er im Stande, zur Featureselektion genutzt zu werden.
 
-Der RandomForest mit 100 Bäumen erreicht eine rmse von __14.568395227441838__ welche deutlich oberhalb der LinearRegression ligt und den 23. Rang bei Kaggle ist.
+Der RandomForest mit 100 Bäumen erreicht ein rmse von __14.568395227441838__ welche deutlich oberhalb der LinearRegression liegt und den 23. Rang bei Kaggle erreicht.
 
 __Wichtige Features vom Random Forest__
 
 ![](images/important_features_random_forest_100.png)\
 
-Wie in der Grafik zu sehen ist sind die 10 Wichtigsten Features AGE, Q11, User, Boring, Beautiful, Catchy, Track, LIKE_ARTIST und Talented. Vergleicht man diese Features, mit der anayse der signifikanten Kookkurrenten, sieht man dass alle wichtigen Features - so fern es Wörter sind - auch wichtige Kookkurrenten sind.
+Wie in der Grafik zu sehen ist sind die 10 wichtigsten Features AGE, Q11, User, Boring, Beautiful, Catchy, Track, LIKE_ARTIST und Talented. Vergleicht man diese Features mit der Anayse der signifikanten Kookkurrenten, sieht man, dass alle wichtigen Features - so fern es Wörter sind - auch wichtige Kookkurrenten sind.
 
-![](images/all_features_improtantes.png)\
+![](images/all_features_improtantes.png)
+X-Achse = Feature wichtigkeits Index.\
+Y-Achse = Wichtigkeit
 
-Werden alle wichtigen Features ausgegeben kann sehr gut gesehen gelesen werden, dass nur das erste drittel der Features wichtig ist, die anderen streben sehr gegen 0.
+Werden alle wichtigen Features ausgegeben, kann sehr gut gelesen werden, dass nur das erste drittel der Features wichtig ist, die anderen streben sehr gegen 0.
 
 ### LinearRegression mit wichtigen Features
 
-Nun, da die wichtigsten Features durch RandomForest heausgefunden wurde, ist von Interesse wie sich die normale LineareRegression verhält, wenn diese nur mit den wichtigsten Features gemacht wird`.
+Nun, da die wichtigsten Features durch RandomForest heausgefunden wurde, ist von Interesse, wie sich die normale LineareRegression verhält, wenn diese nur mit den wichtigsten Features gemacht wird.
 
 Um zu testen ob es sich um Overfitting handelt, haben wir nun mal die LineareRegression anhand nur den wichtigsten Features durchgeführt.
 
 ![](images/rsme_important_features.png)\
 
-In dieser Grafik kann sehr schön abgelesen werden dass die wichtigsten Features vom RandomForest tatsächlich viel wichtiger sind als die Schwachen. Auch sieht man eine schöne Parallele zur letzen Grafik, wo die Wichtigkeit der Features ausgegeben wird. Dies ist dadurch sichtbar, dass am anfang der rsme sehr steil nach unten geht. Jedoch wird das Resultat pro feature immer besser! Mit 100 Features wird immer noch ein gutes Resultat erhalten. Es könnten also 50 Features gespart werden.
+In dieser Grafik kann sehr schön abgelesen werden, dass die wichtigsten Features vom RandomForest tatsächlich viel wichtiger sind als die Schwachen. Auch sieht man eine schöne Parallele zur letzen Grafik, wo die Wichtigkeit der Features ausgegeben wird. Dies ist dadurch sichtbar, dass am Anfang der rsme sehr steil nach unten geht. Jedoch wird das Resultat pro Feature immer besser! Mit 100 Features wird immer noch ein gutes Resultat erhalten. Es könnten also 50 Features gespart werden.
 
 ### LinearRegression mit PCA
 
-Die Anzeichen der bisherigen Analysen deuten darauf hin, dass unsere Daten eher an underfitting als overfitting leiden. Als letzte Prüfung wird eine PCA (Principal Component Analysis) auf die Daten und der LinearenRegression angewandt. PCA ist ein Ferfahren mit welchem die Dimensionen Reduziert werden durch dass unwichtige Informationen verworfen werden. Dabei werden jedoch nicht ganze Features entfehrnt, viel mehr werden die vorhandenen Features in neue Features Transferiert und dabei die unwichtigen Elemente der einzelnen Features entfehrnt.
+Die Anzeichen der bisherigen Analysen deuten darauf hin, dass unsere Daten eher an Underfitting als Overfitting leiden. Als letzte Prüfung wird eine PCA (Principal Component Analysis) auf die Daten und der LinearenRegression angewandt. PCA ist ein Verfahren, mit welchem die Dimension dadurch reduziert wird, dass unwichtige Informationen verworfen werden. Dabei werden nicht ganze Features entfernt, viel mehr werden die vorhandenen Features in neue Features transferiert und dabei die unwichtigen Elemente der einzelnen Features entfernt.
 
 ![](images/pca_linear_regression.png)\
 
-Auf dem Bild wird gezeit, wie der rsme mit steigender Anzahl Features immer kleine und somit besser wird. Interessanter weise ist der pca mit 149 Features, also einem Feature weniger als im Orginal der beste Wert von __16.150403__ besitzt und somit sogar minimal besser ist als ohne PCA. In der Grafik sind die Unterschiede im hundertstel bereich sichtbar, so stark wie es scheint sind die unterschiede nicht.
+Auf dem Bild wird gezeigt, wie der rsme mit steigender Anzahl Features immer kleine und somit besser wird. Interessanter weise ist der pca mit 149 Features, also einem Feature weniger als im Orginal der beste Wert von __16.150403__ besitzt und somit sogar minimal besser ist als ohne PCA. In der Grafik sind die Unterschiede im Hundertstelbereich sichtbar, so stark wie es scheint sind die Unterschiede aber nicht.
 
-Nach dieser Erkentniss, sind wir davon überzeugt, dass das Resultat nur verbessert werden kann, wenn noch mehr features durch _Feature engeneering_ generiert werden. Nicht aber durch Aussortierung schlechter Features.
+Nach dieser Erkentniss sind wir davon überzeugt, dass das Resultat nur verbessert werden kann, wenn noch mehr Features durch _Featureengeneering_ generiert werden. Nicht aber durch Aussortierung schlechter Features.
 
 ### Support Vector Regression
 
-Auch haben wir versucht die Bewertungen per Support Vector regression vorher zu sagen. Dieser dauerte jedoch auf einer Machine 5 Stunden. Somit haben wir ihn nur einmal mit Standardwerten laufen lassen. Dabei ist ein eher ernüchternder rsme von __22.237846871998496__ herausgekommen. Evt. könnte man per GridSearch noch bessere hyperparameter finden. Dafür haben wir jedoch zu wenig rechenpower.
+Auch haben wir versucht die Bewertungen per Supportvectorregression vorher zu sagen. Dieser dauerte jedoch auf einer Maschine fünf Stunden. Somit haben wir ihn nur einmal mit Standardwerten laufen lassen. Dabei ist ein eher ernüchternder rmse von __22.237846871998496__ herausgekommen. Evtl. könnte man per GridSearch noch bessere Hyperparameter finden. Dafür haben wir jedoch zu wenig Rechenleistung.
 
-### Feature engeneering
+### Featureengeneering
 
 __Altersgruppen__
 
-Um auf weitere Features zur Feature Engeneering zu kommen hat sich als erstes das Alter angeboten. Dabei habe wurden die Alter in zehn Jahres Gruppen aufgeteilt. Somit wurden 8 neue Features generiert.
+Um auf weitere Features mit Featureengeneering zu kommen, hat sich als erstes das Alter angeboten. Dabei habe wurden die Alter in Zehnjahresgruppen aufgeteilt. So konnten 8 neue Features generiert werden.
 
 LineareRegression mit Gruppierung: rmse = __16.149953208751128__
 RandomForest mit Gruppierung: rmse = __14.562964016928039__
 
-Somit wurde eine minimale Verbesserung unter LinearRegression und auch unter RandomForest erreicht.
+Mit dieser Untergruppierunt wurden minimale Verbesserung unter LinearRegression als auch unter RandomForest erreicht.
 
 ## Test
 
-Nun werden die Modelle mit den Testdaten getestet. Dabei müssen die Features der Testdaten auch angepasst werden. Besonders müssen ebenfalls die NaN Felder Gefüllt werden und auch die AGE Gruppierung gemacht werden, da die Testdaten die gleiche anzahl Features haben müssen wie die Trainingsdaten.
+Nun werden die Modelle mit den Testdaten getestet. Dabei müssen die Features der Testdaten auch angepasst werden. Besonders müssen ebenfalls die NaN Felder gefüllt werden und auch die Altersgruppierungen erzeugt werden, da die Testdaten die gleiche Anzahl Features haben müssen wie die Trainingsdaten.
 
 - LinearRegression mit AGE Gruppierung: rmse = __16.219554709616276__
 - RandomForest mit AGE Gruppierung: rmse = __14.376954514210322__
 
-Hier ist interessant zu sehen dass der RandomForest auf die eigenen Testdaten sogar ein besseres Ergebnis erziehlt als mit crossvalidierung der Trainingsdaten. Auf Kaggle ist dies der 23. Platz.
+Hier ist interessant zu sehen, dass der RandomForest auf die eigenen Testdaten sogar ein besseres Ergebnis erziehlt als mit Krossvalidierung der Trainingsdaten. Auf Kaggle ist dies der 23. Platz.
 
 ## Ausblick
 
 ### Weiteres Feature engeneering
 
-Da wir nun herausgefunden haben, dass sich duch Feature-Engeneering, also Erweiterung der Features das Resulat verbessern lässt, würde sich folgendes Szenario anbieten.
+Da wir nun herausgefunden haben, dass sich duch Featureengeneering, also Erweiterung der Features das Resulat verbessern lässt, würde sich folgendes Szenario anbieten.
 
 1. Analysieren der besten Fragen
     - Kann man die User anhand der Fragen in weitere Gruppen einteilen?
+      Beispielsweise, Teilnehmer die bereit sind Geld für Musik aus zu geben oder gerne auf dem neusten Stand der Popmusik bleiben.
 
 2. Clustering der Kookkurrenten
-    - Kann man die Wörter noch mals Gruppieren und so neue Features erstellen?
+    - Kann man die Wörter nochmals gruppieren und so neue Features erstellen?
     - Erweitern der Kookkurrenten durch Synonyme.
 
 ### Collaborative Filtering
 
-Auch gibt es noch grundsätzlich andere Verfahren zur Berechnung von Bewertungen. Diese unter dem Namen "Collaborative Filtering" funktionierenden Systeme versuchen neuer Ratings aus den Ratings ähnlicher Benutzer und Tracks zu schliessen. Aus Zeitgründen wurden diese Verfahren von uns nicht getestet.
+Auch gibt es grundsätzlich andere Verfahren zur Berechnung von Bewertungen. Diese unter dem Namen "Collaborative Filtering" funktionierenden Systeme versuchen neue Ratings aus den Ratings ähnlicher Benutzer und Tracks zu schliessen. Aus Zeitgründen wurden diese Verfahren von uns nicht getestet.
 
 Collaboratives Filtering könnte so aussehen:
 
 1. Es muss ein Ähnlichkeitsmaß der Benutzer, Artists und Tracks gefunden werden.
 
-2. Die Bewertung geht nun folgendermassen:
-    - Es werden die Ähnlichsten Benutzer zum zu bewertenden Benutzer gesucht.
-    - Es werden die Tracks der ähnlichen Benutzer welche auch ähnlich oder gleich dem neu zu bewertenden Track gesucht.
+2. Die Bewertung könnte nun folgendermassen aussehen:
+    - Es werden die ähnlichsten Benutzer des zu bewertenden Benutzers gesucht.
+    - Es werden die Tracks der ähnlichen Benutzer, welche auch ähnlich oder gleich dem neu zu bewertenden Tracks sind, gesucht.
     - Von diesen Tracks wird der Mittelwert der Ratings genommen.
+
+# Fazit
+
+Es zeigte sich offensichtlich, dass bei steigender Anzahl an Samples/Features, sowie steigender Komplexität der Algorithmen exponentiell mehr Rechenpower nötig ist. Dies hatte zur Ursache, dass für kleine Experimente mit ungewissem Ergebnis sehr viel Zeit einberechnet werden musste. Um weiter Modelle bzw. auf Grundlage unterschiedlicher Daten empirisch zu Testen wäre also deutlich mehr Rechenleistung hilfreich gewesen. Dadurch ist uns auch bewusst geworden, wie wichtig Rechenleistung in Zukunft für Unternehmen, die Prozessoptimierung mit lernenden Algorithmen durchführen wollen, sein wird.
+Dies hat z.B. auch die Folge dass gewisse Plots, welche falsch beschriftet wurden von uns aus Zeitgründen nicht neu generiert wurden.
+
+Es war für uns nicht erklärbar, warum einige Modell wie z.B. die Supportvektorregression gegenüber dem Randomforest so schlecht abgeschnitten haben. Auch zeigte es auf, dass man sich ernsthaft mit den verwendeten Algorithmen auseinandersetzen und diese grundlegen verstehen muss, um alle richtg an zu wenden. Dieses Verständnis kann nur durch Erfahrung gewonnen werden.
+
+Wir sind uns sicher, dass bessere Ergebnisse auch durch interdisziplinären Zusammenarbeit mit der Psychologie oder Soziologie erreicht werden können, indem diese die Analyse der Zusammenhänge der Daten mit den Bewertungen durch ihr Wissen ergänzen.
