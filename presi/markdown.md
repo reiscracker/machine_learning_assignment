@@ -170,6 +170,12 @@ Teilnehmer, die eine feste Stelle hatten, gaben durchschnittlich am meisten Punk
 
 Das Alter hingegen gab wenig Hinweis auf die abgegebenen Bewerungen des Teilnehmers.
 ---
+
+# Explorative Analyse
+
+![](../images/music_interest_by_rating.png)
+
+Niedrige Bewertungen wurden generell eher von Menschen abgegeben, die auch angaben weniger Interesse an Musik zu haben. 
 ---
 # Definitionen
 
