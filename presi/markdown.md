@@ -360,4 +360,7 @@ Nummerische Werte nummerisch und verbal dargestellt.
 - Blackbox Gefühl
   - Erfahrung muss gesammelt werden
   - Verstehen der Algorithmen extrem wichtig
-- Interdisziplinärer 
+- Explorative Datenanalyse extrem wichtig
+  - Weiters Durchleuchten der Daten
+  - Interdisziplinäre Zusammenarbeit sicher Hilfreich
+
