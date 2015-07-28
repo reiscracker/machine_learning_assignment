@@ -11,6 +11,192 @@ Machine Learning - Kaggle EMI Competition.
 
 ---
 
+# Kookkurentsanalyse
+
+```json
+  {
+      'Aggressive': {
+          'Annoying': 337,
+          'Approachable': 145,
+          'Arrogant': 1539,
+          'Authentic': 515,
+          ...
+       },
+       'Annoying': {
+          'Aggressive': 337,
+          'Approachable': 18,
+          'Arrogant': 372,
+          'Authentic': 50,
+          ...
+       },
+       ...
+  }
+```
+
+---
+# Wörter und ihre Verbindung
+
+![](../images/cooccurrence_tagclound.png)
+
+---
+# None Of These
+
+![](../images/cooccurrence_non_of_these.png)
+
+---
+# 30 signifikantesten Kookkurenten
+
+![](../images/most_significant_words_pagerank.png)
+
+---
+# Dummy-Werte/Spalten erstellen
+
+- Gender { Male, Female }
+- Region { North west, South ... }
+- Working { Fulltime, ... }
+- MUSIK
+- HEARD_OF
+- OWN_ARTIST_MUSIC
+
+---
+# LIST_OWN und LIST_BACK
+
+Nummerische Werte nummerisch und verbal dargestellt.
+
+- Less than an hour
+- More than 16 Hours
+- 1 hour
+
+---
+
+# LineareRegression
+
+- Crossvalidation Durchschnitt
+- 3 Iterationen
+- NaN-Werte auf Mittelwert
+
+## rmse => 16.15075547663826
+## Kaggle Gewinner => 13.19638
+
+---
+
+# RidgeRegressor -> Regularisation
+
+![](../images/ridge_diff_to_linear_per_alpha.png)
+
+---
+
+# Lasso
+
+- Regularisation durch aussortieren schlechter Features
+- alpha zwischen 0.001 und 0.5
+
+## rmse stetig => 16.15__09__47926890396
+## LR rmse => 16.15__07__5547663826
+
+---
+
+# RandomForest
+
+- N zufällige Entscheidungsbäume
+- N auf 100 gesetzt.
+
+## rmse => 14.568395227441838
+## LR rmse => 16.15__07__5547663826
+## Kaggle Gewinner => 13.19638
+
+---
+
+# Wichtige Features RandomForest
+
+- __Talented__ mit Abstand am Besten
+
+![](../images/important_features_random_forest_100.png)
+
+---
+
+# Alle wichtigen Features sortiert
+
+- Erstes Drittel am wichtigsten.
+
+![](../images/all_features_improtantes.png)
+
+---
+
+# LineareRegression mit wichtigsten Features
+
+![](../images/rsme_important_features.png)
+
+---
+
+# PCA und LineareRegression
+
+![](../images/pca_linear_regression.png)
+
+---
+
+# Support Vector Regression
+
+- 5 Stunden Rechenzeit
+- Standardeinstellungen
+- Evt bessere hyperparameter, jedoch super Zeitintensiv.
+
+## rmse => 22.2378
+
+---
+
+# Underfitting und nicht Overfitting
+
+- Es wurden mit weniger Features __nie__ bessere Resultate erzielt.
+- Verdacht auf Underfitting
+- Versuchen mehr Features zu generieren
+
+---
+
+# Altersgruppen
+
+- 10 Jahres Abschnitte 
+- RandomForest und LineareRegression besser geworden
+
+## LR (neu/alt) => (16.14 / 16.15)
+## RF (neu/alt) => (14.562 / 14.568)
+
+---
+
+# RMSE auf Testdaten
+
+- LinearRegression mit AGE Gruppierung: 
+  - rmse: __16.219554709616276__
+  - Kaggle Platzierung: __58__
+
+- RandomForest mit AGE Gruppierung: 
+  - rmse = __14.376954514210322__
+  - Kaggle Platzierung: __23__
+
+---
+
+# Ausblick
+
+- Wieteres Feature-Engeneering
+  - Analysieren der besten Fragen
+  - Clustering der Kookkurenten
+
+- Collaborative Filtering
+  - Rating durch Ratings von ähnlichen Benutzern, Tracks und Artists.
+
+---
+
+# Fazit
+
+- Hohe Rechenleistung / Zeit.
+- Blackbox Gefühl
+  - Erfahrung muss gesammelt werden
+  - Verstehen der Algorithmen extrem wichtig
+- Interdisziplinärer 
+
+---
+
+
 # Definitionen
 
 .quote[
