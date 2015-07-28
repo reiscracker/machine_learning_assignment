@@ -1,5 +1,3 @@
-# machine_learning_assignment
-
 # Readme und Einleitung in das Projekt
 
 ### Projekt "EMI Music" Challenge auf Kaggle.com
