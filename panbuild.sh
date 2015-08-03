@@ -1,1 +1,1 @@
-pandoc --toc -s -N -V geometry:margin=1in --template mytemplate.latex --include-in-header titlesec.tex -o dokumentation.pdf dokumentation.md 
+pandoc --filter pandoc-citeproc --toc -s -N -V fontsize=12pt -V geometry:margin=1in bericht_arnold_hodel.md --biblio bericht.bib --include-in-header titlesec.tex --csl springer-lecture-notes-in-computer-science_modified.csl -o bericht_arnold_hodel.pdf
