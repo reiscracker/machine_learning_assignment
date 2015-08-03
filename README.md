@@ -7,7 +7,6 @@ von Lukas Hodel und Simon Arnold
 ### Die Dateien in diesem Projekt
 Das Projekt besteht aus folgenden Dateien:
 * __README__ - Diese Einleitung in das Projekt
-* __Text_introduction__ und __Text_predict__ - Vorläufige Fassung der Dokumentation der Arbeit im IPython Notebook Format
 * __explorative_analysis_1__ und __explorative_analysis_users__ - Erste explorative Analyse des Datensatzes bzw. speziell des `users.csv`-Datensatzes
 * __predicting__ - Feature Engineering und Modelle zur Vorhersage der Bewertungen, also der eigentlichen Lösung der Aufgabenstellung
 * __user_csv_plots__ und __words_csv_plots__ - Visualisierungen der Datensätze, mit Fokus auf die Datei `users.csv` und `words.csv`
